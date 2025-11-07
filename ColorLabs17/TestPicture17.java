@@ -6,7 +6,7 @@
  * @author (Kevin Hayes)
  * @version (10-19-2016)
  */
-import java.awt.*;
+import java.awt.*; //imports color class in awt library
 import java.util.*;
 import java.util.List; // resolves problem with java.awt.List and java.util.List
 public class TestPicture17
@@ -19,29 +19,31 @@ public class TestPicture17
   public static void main(String[] args)
   {
       //opens picture using a dialog box
-      /**/
+      /*
      String fileName = FileChooser.pickAFile();
      Picture pictObj = new Picture(fileName);
-     pictObj.explore();
+     pictObj.explore();*/
 
-     //opens a pictue using a path
+     //opens a picture using a path
      //Picture apic = new Picture("C:\\Users\\khayes\\Favorites\\Documents\APCS- Java\chap03\Curriclum 2013\Picture Color labs\images\\beach.jpg");
      
-     //relative path
+     //Know it, Love it, Live it ON TEST----------------------
+     //relative path                dir/folder/file
      Picture apic = new Picture("images\\beach.jpg");
      Picture ferris1 = new Picture("images/2000 ferris wheel2.jpg");
-     Picture ferris2 = new Picture("images/2000 ferris wheel2.jpg");
+     Picture moto = new Picture("images/redMotorcycle.jpg");
      Picture ferris3 = new Picture("images/2000 ferris wheel2.jpg");
 
-     //apic.explore();
+     //apic.explore(); //DISPLAYS THE PICTURE ------------------------
      ferris1.explore();
+     //moto.explore();
      
-     //makes an array of pixels
+     //makes an array of pixels ----have to do for every picture
      Pixel[] pixels;
      //gets pixels from picture and assigns to pixels array
      pixels = ferris1.getPixels();
     
-     //how many pixels or how large array
+     //how many pixels or how large array ------- not tested on arrays
     System.out.println("This is a large array"+pixels.length  );
 
 
@@ -49,10 +51,30 @@ public class TestPicture17
         //access each index
     System.out.println(pixels[17]);
     //access each pixel
+    
+    //setting colors with pixel documentation
     Pixel spot = ferris1.getPixel(100,100);
+    Pixel spot2 = ferris1.getPixel(433,283);
+    Pixel ferr17 = pixels[17];
+    ferr17.setGreen(160);
+    ferr17.setBlue(200);
+    ferr17.setRed(240);//MUST explore again to see it
+    
+    Color newColor = new Color(250,128,114);//salmon
+    spot.setColor(newColor);
+    spot2.setColor(Color.blue);
+    
+    
+    ferris1.explore();
     
     System.out.println(pixels[17].getColor());
     System.out.println(spot);
+    
+    for (int i = 0; i < 10000; i++){
+        Pixel yuck = ferris1.getPixel((int)(Math.random()*200), (int)(Math.random()*200));
+        yuck.setColor(Color.green);
+    }
+    ferris1.explore();
 /*
     pixels[17].setColor(Color.blue);
     spot.setColor(new Color(252,252,252));

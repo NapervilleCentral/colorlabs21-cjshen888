@@ -36,12 +36,15 @@ public class TestPicture17
 
      //apic.explore(); //DISPLAYS THE PICTURE ------------------------
      ferris1.explore();
-     //moto.explore();
+     moto.explore();
      
      //makes an array of pixels ----have to do for every picture
      Pixel[] pixels;
      //gets pixels from picture and assigns to pixels array
      pixels = ferris1.getPixels();
+     
+     Pixel[] mpixels;
+     mpixels = moto.getPixels();
     
      //how many pixels or how large array ------- not tested on arrays
     System.out.println("This is a large array"+pixels.length  );
@@ -56,6 +59,7 @@ public class TestPicture17
     Pixel spot = ferris1.getPixel(100,100);
     Pixel spot2 = ferris1.getPixel(433,283);
     Pixel ferr17 = pixels[17];
+    
     ferr17.setGreen(160);
     ferr17.setBlue(200);
     ferr17.setRed(240);//MUST explore again to see it
@@ -71,7 +75,7 @@ public class TestPicture17
     System.out.println(spot);
     
     for (int i = 0; i < 10000; i++){
-        Pixel yuck = ferris1.getPixel((int)(Math.random()*200), (int)(Math.random()*200));
+        Pixel yuck = ferris1.getPixel((int)(Math.random()*600), (int)(Math.random()*600));
         yuck.setColor(Color.green);
     }
     ferris1.explore();
@@ -81,14 +85,29 @@ public class TestPicture17
     pixels[500034].setColor(Color.blue);
 
     ferris1.explore();
-/*
-   // loop to access indexes of array or collection
-
+/**/
+   // FOR EACH loop to access indexes of array or collection----------------------
+    int red;
+    int blue,green;
     //for each loop spot  is a ?
-    for (Pixel spot : pixels)
-    System.out.println( spot );
-
-
+    for (Pixel spot1 : mpixels) {
+        //System.out.println( spot1 );
+        red = spot1.getRed();
+        red = (int)(red*.25);
+        spot1.setRed(red);
+    }
+    moto.explore();
+    for (Pixel spot1 : mpixels) {
+        blue = spot1.getBlue();
+        blue = (int)(blue*Math.random());
+        spot1.setBlue(blue);
+        
+        green = spot1.getGreen();
+        green = (int)(green*Math.random());
+        spot1.setGreen(green);
+    }
+    
+    moto.explore();
    
  /**/
 

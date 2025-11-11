@@ -10,3 +10,8 @@ VERSION or DATE:
 HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
+
+1) Who - Critique
+2) Who - Critique
+3) Who - Critique
+4) Who - Critique

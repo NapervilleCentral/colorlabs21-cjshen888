@@ -94,8 +94,7 @@ public class ColorLab
             red = spot1.getRed();
             blue = spot1.getBlue();
             green = spot1.getGreen();
-            
-            if (red>140 && red<180 && green<220 &&green>140 && blue>200 &&blue<235){
+            if (red>130 && red<180 && green<220 &&green>140 && blue>200 &&blue<235){
                 spot1.setColor(newColor);
             }
         }

@@ -19,23 +19,45 @@ public class SheparFaireyLab
     {
         
          //opens selfie picture 
-          /**/
+          /*
          String fileName = FileChooser.pickAFile();
          Picture pictObj = new Picture(fileName);
-         pictObj.explore();
+         pictObj.explore();*/
          
          //relative path
-         Picture apic = new Picture("images\\beach.jpg");
+         //Picture apic = new Picture("images\\beach.jpg");
          //change with selfie picture
-         Picture me = new Picture("images/beach.jpg");
-         Picture me1 = new Picture("images/beach.jpg");
-         Picture me2 = new Picture("images/beach.jpg");
+         Picture me = new Picture("images/Claire.jpg");
+         Picture me1 = new Picture("images/Claire.jpg");
+         Picture me2 = new Picture("images/Claire.jpg");
          
-         /**
+         /** 63,64,64,64 ---- (0,63) (64,127) (128,192) (193,255)
           * method 1 change
-          * 
           */
-         
+         Pixel[] pixels;
+         pixels= me.getPixels();
+         for (Pixel spot : pixels) {
+            int avg = (int)(spot.getAverage());
+            spot.setRed(avg);
+            spot.setBlue(avg);
+            spot.setGreen(avg);
+            
+            Color darkblue = new Color(0,0,139);
+            Color red = new Color(0,0,139);
+            Color lightblue = new Color(224,255,255);
+            Color offwhite = new Color(255,250,205);
+            int r = spot.getRed();//doesn't matter which one you get
+            if (r >= 0 && r <= 63){
+                spot.setColor(darkblue);
+            } else if (r >= 64 && r <= 127){
+                spot.setColor(red);
+            } else if (r >= 64 && r <= 127){
+                spot.setColor(lightblue);
+            } else {
+                spot.setColor(offwhite);
+            }
+         }
+         me.explore();
          /**
           * method 2 change
           * 
@@ -45,6 +67,7 @@ public class SheparFaireyLab
           * custom color palette
           */
 
-         
+         //this writes a copy of the pic!!!! RENAME PIC!!!!
+         me1.write("images/SFTry1.jpg");
     }//main       
 }//class

@@ -30,7 +30,7 @@ public class SheparFaireyLab
          Picture me = new Picture("images/Claire.jpg");
          Picture me1 = new Picture("images/Claire.jpg");
          Picture me2 = new Picture("images/Claire.jpg");
-         
+         me.explore();
          /** 63,64,64,64 ---- (0,63) (64,127) (128,192) (193,255)
           * method 1 change
           */
@@ -43,7 +43,7 @@ public class SheparFaireyLab
             spot.setGreen(avg);
             
             Color darkblue = new Color(0,0,139);
-            Color red = new Color(0,0,139);
+            Color red = new Color(139,0,0);
             Color lightblue = new Color(224,255,255);
             Color offwhite = new Color(255,250,205);
             int r = spot.getRed();//doesn't matter which one you get
@@ -51,7 +51,7 @@ public class SheparFaireyLab
                 spot.setColor(darkblue);
             } else if (r >= 64 && r <= 127){
                 spot.setColor(red);
-            } else if (r >= 64 && r <= 127){
+            } else if (r >= 128 && r <= 192){
                 spot.setColor(lightblue);
             } else {
                 spot.setColor(offwhite);

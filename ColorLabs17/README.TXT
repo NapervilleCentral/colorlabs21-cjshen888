@@ -11,7 +11,7 @@ HOW TO START THIS PROJECT:
 AUTHORS:
 USER INSTRUCTIONS:
 
-1) Who - Critique
+1) Mr. Hayes - Make the bottom left corner less washed out, intensity blurs details
 2) Who - Critique
 3) Who - Critique
 4) Who - Critique

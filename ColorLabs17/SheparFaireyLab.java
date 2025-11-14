@@ -153,19 +153,14 @@ public class SheparFaireyLab
                 spot.setColor(s5);*/
             //Try 4: 
             if (r <= 63){
-                //spot.setColor(firebrick);
                 spot.setColor(s1);
             } else if (r <= 130){
-                //spot.setColor(tomato);
                 spot.setColor(s2);
             } else if (r <= 200){
-                //spot.setColor(lightsalmon);
                 spot.setColor(s3);
             } else if (r<= 210){
-                //spot.setColor(gold);
                 spot.setColor(s4);
             } else if (r<=220){
-                //spot.setColor(lightpink);
                 spot.setColor(s5);
             } else {
                 spot.setColor(s6);
@@ -174,6 +169,5 @@ public class SheparFaireyLab
          me2.explore();
          me2.write("images/SFTry3.jpg");
          //this writes a copy of the pic!!!! RENAME PIC!!!!
-         //me1.write("images/SFTry1.jpg");
     }//main       
 }//class

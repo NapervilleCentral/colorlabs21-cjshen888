@@ -18,7 +18,7 @@ public class ColorLab
         Picture p2 = new Picture("images\\beach.jpg");
         Picture p3 = new Picture("images\\beach.jpg");
         Picture p4 = new Picture("images\\beach.jpg");
-        
+        Picture me = new Picture("images/Claire.jpg");
         p.explore();
         
         //adjust--------------------------------------------------
@@ -67,6 +67,16 @@ public class ColorLab
             spot1.setGreen(avg);
         }
         p3.explore();
+        
+        Pixel[] pixelsme;
+        pixelsme= me.getPixels();
+        for (Pixel spot1 : pixelsme) {
+            int avg = (int)(spot1.getAverage());
+            spot1.setRed(avg);
+            spot1.setBlue(avg);
+            spot1.setGreen(avg);
+        }
+        me.explore();
         
         //lighten--------------------------------------------------
         Pixel[] pixels3;

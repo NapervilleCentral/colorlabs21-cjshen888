@@ -12,6 +12,6 @@ AUTHORS:
 USER INSTRUCTIONS:
 
 1) Mr. Hayes - Make the bottom left corner less washed out, intensity blurs details
-2) My Mom - Make more details and more depth show
-3) Who - Critique
-4) Who - Critique
+2) My Mom - Make more details and more depth showing
+3) Sister - add more colors
+4) My Dad - create a smoother gradient

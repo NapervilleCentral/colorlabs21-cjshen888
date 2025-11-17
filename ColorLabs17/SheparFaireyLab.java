@@ -86,7 +86,6 @@ public class SheparFaireyLab
          Color orange = new Color(255,199,77);
          Color darkgreen = new Color(0,255,127);
          Color lightgreen = new Color(158,255,0);
-         Color deep = new Color(15, 20, 60);
 
          Pixel[] pixels2;
          pixels2= me2.getPixels();
@@ -136,7 +135,7 @@ public class SheparFaireyLab
             } else{
                 spot.setColor(new Color(150, 240, 10)); //darker green
             }*/
-            //Try 4: gradient-------------------------------------
+            //Final Try 4: gradient-------------------------------------
             if (r <= 30){
                 spot.setColor(new Color(65, 100, 230));// deep blue
             }else if (r < 63){
@@ -158,6 +157,6 @@ public class SheparFaireyLab
             }
          }
          me2.explore();
-         me2.write("images/SFTry4.jpg");
+         me2.write("images/SFmyFinal.jpg");
     }//main       
 }//class

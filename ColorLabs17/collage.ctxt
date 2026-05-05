@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=collage
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ posterSample5\ here.\r\n\ 1\ Copyed\ orginal]\r\n\ 2\ Mirror\r\n\r\n\ @author\ (Mr.\ Hayes)\r\n\ @version\ (Poster\ Project\ May\ 23)\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=source
+comment2.target=void\ mirrorVertical(Picture)
+comment2.text=\r\n\ Method\ to\ mirror\ on\ a\ vertical\ line\ in\ the\ middle\ of\ the\ picture\ based\ on\r\n\ the\ width\r\n
+comment3.params=sourcePic\ targetPic
+comment3.target=void\ copytoCanvas(Picture,\ Picture)
+comment3.text=\r\n\ copy\ from\ source\ to\ target\r\n\ position\ of\ int\ x,\ y\ for\ placement\ on\ the\ target\r\n
+numComments=4

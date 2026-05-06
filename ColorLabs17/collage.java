@@ -13,24 +13,79 @@ public class collage
 {
     public static void main(String[] args)
     {
-        Picture collage = new Picture("images/chicken.jpg");
         Picture acanvas = new Picture("images/canvas.jpg");
+        Picture collage = new Picture("images/chicken.jpg");
+        Picture collage2 = new Picture("images/chicken.jpg");
+        Picture collage3 = new Picture("images/chicken.jpg");
+        
         //collage.explore();
-        //makes an array of pixels--GIVEN YOU NEED THIS
-        /*Pixel[] pixels;
-        //gets pixels from picture and assigns to pixels array
-        pixels = collage.getPixels();//GET ALL THE PIXELS
-        for (Pixel spot : pixels)
-        {
-            //System.out.println( spot );
-            spot.setRed((int)(spot.getRed() *.1));
-        }*/
         
-        mirrorVertical(collage);
-        copytoCanvas(collage,acanvas); //edit canvas size 2014x3124
+        copytoCanvas(collage,acanvas,0,0); //edit canvas size 2014x3124
         
-        collage.explore();
+        edgeDetection(collage, 15);
+        copytoCanvas(collage,acanvas,0,1208);
+        
+        sepia(collage2);
+        copytoCanvas(collage2,acanvas,0,2416);
+        
+        mirrorVertical(collage3);
+        copytoCanvas(collage3,acanvas,1007,0);
+        acanvas.explore();
+        
+        acanvas.write("images/canvas.jpg");
     }
+    
+    public static void sepia(Picture collage) {
+        Pixel[] pixels;
+        pixels = collage.getPixels();
+         for (Pixel spot : pixels) {
+            int avg = (int)(spot.getAverage());
+            spot.setRed(avg);
+            spot.setBlue(avg);
+            spot.setGreen(avg);
+        }
+    }
+    
+    public static void posterize(Picture collage, double amount) {
+        Pixel[] pixels;
+        pixels = collage.getPixels();
+        for (Pixel spot : pixels) {
+            int avg = (int)(spot.getAverage());
+            spot.setRed(avg);
+            spot.setBlue(avg);
+            spot.setGreen(avg);
+            int r = spot.getRed();
+            if (r <= 63){
+                //spot.setColor();
+            } else if (r <= 128){
+                //spot.setColor();
+            } else if (r <= 192){
+                //spot.setColor();
+            } else {
+                //spot.setColor();
+            }
+         }
+    }
+    
+    public static void edgeDetection(Picture collage, double amount){
+        Pixel[] pixels;
+        pixels = collage.getPixels();
+        for (int i=0; i<pixels.length-1; i++)
+        {
+            int avg = (int)(pixels[i].getAverage());
+            int avg2 = (int)(pixels[i+1].getAverage());
+            if (Math.abs(avg-avg2)< amount){
+                pixels[i].setRed(0);
+                pixels[i].setBlue(0);
+                pixels[i].setGreen(0);                
+            } else {
+                pixels[i].setRed(255);
+                pixels[i].setBlue(255);
+                pixels[i].setGreen(255);
+            }
+        }
+    }
+    
     /**
     * Method to mirror on a vertical line in the middle of the picture based on
     * the width
@@ -60,15 +115,16 @@ public class collage
     * copy from source to target
     * position of int x, y for placement on the target
     */
-    public static void copytoCanvas( Picture sourcePic, Picture targetPic)
+    public static void copytoCanvas( Picture sourcePic, Picture targetPic, int x, int y)
     {
         Pixel sourcePix = null;
         Pixel targetPix = null;
         //width of the source must be <= to the canvas I am
-        //going to copy to
-        for (int sourceX = 0, targetX = 100; sourceX<sourcePic.getWidth(); sourceX++, targetX ++)
+        //going to copy
+        //targetx and y was 100 and 100
+        for (int sourceX = 0, targetX = x; sourceX<sourcePic.getWidth(); sourceX++, targetX ++)
         {
-            for (int sourceY = 0, targetY = 100; sourceY<sourcePic.getHeight(); sourceY++, targetY ++)
+            for (int sourceY = 0, targetY = y; sourceY<sourcePic.getHeight(); sourceY++, targetY ++)
             {
                 //set the target pix color of the source pix
                 sourcePix = sourcePic.getPixel(sourceX,sourceY);
@@ -76,5 +132,5 @@ public class collage
                 targetPix.setColor(sourcePix.getColor());
             }//loop
         }//loop
-    }//end of copyKatie
+    }
 }

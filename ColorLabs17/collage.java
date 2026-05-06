@@ -13,21 +13,23 @@ public class collage
 {
     public static void main(String[] args)
     {
-        Picture collage = new Picture("images\\temple.jpg");
-        Picture acanvas = new Picture("images\\canvas.jpg");
+        Picture collage = new Picture("images/chicken.jpg");
+        Picture acanvas = new Picture("images/canvas.jpg");
+        //collage.explore();
         //makes an array of pixels--GIVEN YOU NEED THIS
-        Pixel[] pixels;
+        /*Pixel[] pixels;
         //gets pixels from picture and assigns to pixels array
         pixels = collage.getPixels();//GET ALL THE PIXELS
         for (Pixel spot : pixels)
         {
             //System.out.println( spot );
             spot.setRed((int)(spot.getRed() *.1));
-        }
-
-        copytoCanvas(collage,acanvas);
+        }*/
+        
         mirrorVertical(collage);
-        acanvas.explore();
+        copytoCanvas(collage,acanvas); //edit canvas size 2014x3124
+        
+        collage.explore();
     }
     /**
     * Method to mirror on a vertical line in the middle of the picture based on

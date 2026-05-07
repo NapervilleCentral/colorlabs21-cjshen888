@@ -13,11 +13,12 @@ public class collage
 {
     public static void main(String[] args)
     {
-        Picture acanvas = new Picture("images/canvas.jpg");
+        Picture acanvas = new Picture("images/finalcollage.jpg");
         Picture collage = new Picture("images/chicken.jpg");
         Picture collage2 = new Picture("images/chicken.jpg");
         Picture collage3 = new Picture("images/chicken.jpg");
-        
+        Picture collage4 = new Picture("images/chicken.jpg");
+        Picture collage5 = new Picture("images/chicken.jpg");
         //collage.explore();
         
         copytoCanvas(collage,acanvas,0,0); //edit canvas size 2014x3124
@@ -30,13 +31,62 @@ public class collage
         
         mirrorVertical(collage3);
         copytoCanvas(collage3,acanvas,1007,0);
-        acanvas.explore();
         
+        for (int i=1;i<10;i+=1){
+            copyPictureSmallerorLarger(collage4,acanvas,i, 1007,1208);
+        }
+        
+        posterize(collage5,1);
+        copytoCanvas(collage5,acanvas,1007,2416);
+        
+        //acanvas.explore();
         acanvas.write("images/canvas.jpg");
     }
     
-    public static void sepia(Picture collage) {
+    public static void posterize(Picture collage, double amount){
         Pixel[] pixels;
+         pixels= collage.getPixels();
+        for (Pixel spot : pixels) {
+            int avg = (int)(spot.getAverage());
+            Color pink = new Color(255,77,164);
+            Color royalblue = new Color(97,137,255);
+            Color orange = new Color(255,199,77);
+            Color darkgreen = new Color(0,255,127);
+            Color lightgreen = new Color(158,255,0);
+            int r = spot.getRed();//doesn't matter which one you get
+            if (r <= 63){
+                spot.setColor(royalblue);
+            } else if (r <= 128){
+                spot.setColor(royalblue);
+            } else if (r <= 192){
+                spot.setColor(orange);
+            } else {
+                spot.setColor(lightgreen);
+            }
+        }
+    }
+    
+    public static void copyPictureSmallerorLarger(Picture source, Picture target, int scale, int x, int y){
+
+        Pixel sourcePix = null;
+        Pixel targetPix = null;
+        //loop through the columns (targetX is the starting point on the Canvas) sourceX += 2 - smaller copy every other pixel
+        //                                                                     sourceX+=.5 - larger, copy every pixel twice, cast as int in the getPix & setcolor
+        for (int sourceX = 0, targetX = x; sourceX < source.getWidth(); sourceX+=scale, targetX++)
+        {
+            //loop through the rows                                               sourceY+=2 - smaller
+            //                                                                    sourceX+=.5 - larger, copy every pixel twice
+            for (int sourceY = 0, targetY = y; sourceY < source.getHeight(); sourceY+=scale, targetY++)
+            {
+                sourcePix = source.getPixel(sourceX, sourceY);
+                targetPix = target.getPixel(targetX, targetY);
+                targetPix.setColor(sourcePix.getColor());
+            }
+        }
+    }
+    
+    public static void sepia(Picture collage) {
+        Pixel[] pixels; //make more blue??
         pixels = collage.getPixels();
          for (Pixel spot : pixels) {
             int avg = (int)(spot.getAverage());
@@ -46,26 +96,13 @@ public class collage
         }
     }
     
-    public static void posterize(Picture collage, double amount) {
-        Pixel[] pixels;
-        pixels = collage.getPixels();
-        for (Pixel spot : pixels) {
-            int avg = (int)(spot.getAverage());
-            spot.setRed(avg);
-            spot.setBlue(avg);
-            spot.setGreen(avg);
-            int r = spot.getRed();
-            if (r <= 63){
-                //spot.setColor();
-            } else if (r <= 128){
-                //spot.setColor();
-            } else if (r <= 192){
-                //spot.setColor();
-            } else {
-                //spot.setColor();
-            }
-         }
-    }
+    /*
+     * double newr = (spot.getRed()*.393)+(spot.getGreen()*.769)+(spot.getBlue()*.189)+1;
+            double newg = (spot.getRed()*.349)+(spot.getGreen()*.686)+(spot.getBlue()*.168)+1;
+            double newb = (spot.getRed()*.272)+(spot.getGreen()*.534)+(spot.getBlue()*.131)+1;
+            Color color = new Color((int)newr,(int)newg,(int)newb);
+            spot.setColor(color);
+     */
     
     public static void edgeDetection(Picture collage, double amount){
         Pixel[] pixels;

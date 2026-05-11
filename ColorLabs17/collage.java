@@ -43,12 +43,12 @@ public class collage
         //acanvas.explore();
         acanvas.write("images/finalcollage.jpg");
     }
-    public static void stripe(Picture collage, int stripeHeight) {
+    public static void stripe(Picture collage, int height) {
         Pixel[] pixels = collage.getPixels();
         int width = collage.getWidth();
         for (int i = 0; i<pixels.length; i++) {
             int row = i/width;
-            if ((row/stripeHeight) % 2 == 0) {
+            if ((row/height) % 2 == 0) {
                 Pixel p = pixels[i];
                 p.setRed(255 - p.getRed());
                 p.setGreen(255 - p.getGreen());

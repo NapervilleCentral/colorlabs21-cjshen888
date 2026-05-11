@@ -21,9 +21,9 @@ public class collage
         Picture collage5 = new Picture("images/chicken.jpg");
         //collage.explore();
         
-        copytoCanvas(collage,acanvas,0,0); //edit canvas size 2014x3124
+        copytoCanvas(collage,acanvas,0,0);
         
-        edgeDetection(collage, 15);
+        edgeDetection(collage, 22);
         copytoCanvas(collage,acanvas,0,1208);
         
         sepia(collage2);
@@ -31,78 +31,87 @@ public class collage
         
         mirrorVertical(collage3);
         copytoCanvas(collage3,acanvas,1007,0);
+
+        copyPictureSmallerorLarger(collage4,acanvas,1,1007,1208);
         
-        for (int i=1;i<10;i+=1){
-            copyPictureSmallerorLarger(collage4,acanvas,i, 1007,1208);
-        }
-        
-        posterize(collage5,1);
+        //posterize(collage5,2.3);
+        stripe(collage5,100);
+        //colorReplacement(collage5,60,new Color(243,124,0),Color.yellow);
+        //colorReplacement(collage5,60,new Color(238,9,29),Color.blue);
         copytoCanvas(collage5,acanvas,1007,2416);
         
         //acanvas.explore();
-        acanvas.write("images/canvas.jpg");
+        acanvas.write("images/finalcollage.jpg");
     }
-    
-    public static void posterize(Picture collage, double amount){
-        Pixel[] pixels;
-         pixels= collage.getPixels();
-        for (Pixel spot : pixels) {
-            int avg = (int)(spot.getAverage());
-            Color pink = new Color(255,77,164);
-            Color royalblue = new Color(97,137,255);
-            Color orange = new Color(255,199,77);
-            Color darkgreen = new Color(0,255,127);
-            Color lightgreen = new Color(158,255,0);
-            int r = spot.getRed();//doesn't matter which one you get
-            if (r <= 63){
-                spot.setColor(royalblue);
-            } else if (r <= 128){
-                spot.setColor(royalblue);
-            } else if (r <= 192){
-                spot.setColor(orange);
-            } else {
-                spot.setColor(lightgreen);
+    public static void stripe(Picture collage, int stripeHeight) {
+        Pixel[] pixels = collage.getPixels();
+        int width = collage.getWidth();
+        for (int i = 0; i<pixels.length; i++) {
+            int row = i/width;
+            if ((row/stripeHeight) % 2 == 0) {
+                Pixel p = pixels[i];
+                p.setRed(255 - p.getRed());
+                p.setGreen(255 - p.getGreen());
+                p.setBlue(255 - p.getBlue());
             }
         }
     }
     
+    public static void colorReplacement(Picture collage, double distance, Color oldcol, Color newcol) {
+        Pixel[] pixels = collage.getPixels();
+        for (Pixel spot : pixels) {
+            if (Pixel.colorDistance(spot.getColor(), oldcol) < distance) {
+                spot.setColor(newcol);
+            }
+        }
+    }
+    
+    public static void posterize(Picture collage,double amount) {
+        Pixel[] pixels = collage.getPixels();
+        int step = (int)(255/amount);
+        for (Pixel p : pixels) {
+            int r = (p.getRed()/step)*step;
+            int g = (p.getGreen()/step)*step;
+            int b = (p.getBlue()/step)*step;
+            p.setRed(r);
+            p.setGreen(g);
+            p.setBlue(b);
+        }
+    }
+    
     public static void copyPictureSmallerorLarger(Picture source, Picture target, int scale, int x, int y){
-
+        if (scale >=10) 
+            return;
         Pixel sourcePix = null;
         Pixel targetPix = null;
+        int shiftX = (source.getWidth()-source.getWidth()/scale)/2;
+        int shiftY = (source.getHeight()-source.getHeight()/scale)/2;
         //loop through the columns (targetX is the starting point on the Canvas) sourceX += 2 - smaller copy every other pixel
         //                                                                     sourceX+=.5 - larger, copy every pixel twice, cast as int in the getPix & setcolor
-        for (int sourceX = 0, targetX = x; sourceX < source.getWidth(); sourceX+=scale, targetX++)
+        for (int sourceX = 0, targetX = x+shiftX; sourceX < source.getWidth(); sourceX+=scale, targetX++)
         {
             //loop through the rows                                               sourceY+=2 - smaller
             //                                                                    sourceX+=.5 - larger, copy every pixel twice
-            for (int sourceY = 0, targetY = y; sourceY < source.getHeight(); sourceY+=scale, targetY++)
+            for (int sourceY = 0, targetY = y+shiftY; sourceY < source.getHeight(); sourceY+=scale, targetY++)
             {
                 sourcePix = source.getPixel(sourceX, sourceY);
                 targetPix = target.getPixel(targetX, targetY);
                 targetPix.setColor(sourcePix.getColor());
             }
         }
+        copyPictureSmallerorLarger(source,target,scale+1, x,y);
     }
     
     public static void sepia(Picture collage) {
-        Pixel[] pixels; //make more blue??
+        Pixel[] pixels; 
         pixels = collage.getPixels();
          for (Pixel spot : pixels) {
             int avg = (int)(spot.getAverage());
-            spot.setRed(avg);
-            spot.setBlue(avg);
-            spot.setGreen(avg);
+            spot.setRed(Math.min(255, avg+55));
+            spot.setGreen(Math.min(255, avg+20));
+            spot.setBlue(Math.max(0, avg-40));
         }
-    }
-    
-    /*
-     * double newr = (spot.getRed()*.393)+(spot.getGreen()*.769)+(spot.getBlue()*.189)+1;
-            double newg = (spot.getRed()*.349)+(spot.getGreen()*.686)+(spot.getBlue()*.168)+1;
-            double newb = (spot.getRed()*.272)+(spot.getGreen()*.534)+(spot.getBlue()*.131)+1;
-            Color color = new Color((int)newr,(int)newg,(int)newb);
-            spot.setColor(color);
-     */
+    } 
     
     public static void edgeDetection(Picture collage, double amount){
         Pixel[] pixels;
@@ -124,30 +133,25 @@ public class collage
     }
     
     /**
-    * Method to mirror on a vertical line in the middle of the picture based on
-    * the width
+    * Method to mirror on a vertical line in the middle of the picture based on the width
     */
-    
     public static void mirrorVertical(Picture source)
     {
         int width = source.getWidth();
         int mirrorPoint = width / 2;
         Pixel leftPixel = null;
         Pixel rightPixel = null;
-        
-        //loop through all the rows
-        for (int y = 0; y < source.getHeight(); y++)
+        for (int y = 0; y < source.getHeight(); y++) //loop through all the rows
         {
-            //loop from 0 to the middle (mirror Point)
-            for (int x = 0; x < mirrorPoint; x++)
+            for (int x = 0; x < mirrorPoint; x++) //loop from 0 to the middle (mirror Point)
             {
                 leftPixel = source.getPixel(x, y);
                 rightPixel = source.getPixel(width - 1 - x, y);
-                
                 rightPixel.setColor(leftPixel.getColor());
             }
         }
     }
+    
     /**
     * copy from source to target
     * position of int x, y for placement on the target
@@ -156,8 +160,7 @@ public class collage
     {
         Pixel sourcePix = null;
         Pixel targetPix = null;
-        //width of the source must be <= to the canvas I am
-        //going to copy
+        //width of the source must be <= to the canvas I am going to copy
         //targetx and y was 100 and 100
         for (int sourceX = 0, targetX = x; sourceX<sourcePic.getWidth(); sourceX++, targetX ++)
         {

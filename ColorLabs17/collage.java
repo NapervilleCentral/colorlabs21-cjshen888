@@ -34,15 +34,13 @@ public class collage
 
         copyPictureSmallerorLarger(collage4,acanvas,1,1007,1208);
         
-        //posterize(collage5,2.3);
         stripe(collage5,100);
-        //colorReplacement(collage5,60,new Color(243,124,0),Color.yellow);
-        //colorReplacement(collage5,60,new Color(238,9,29),Color.blue);
         copytoCanvas(collage5,acanvas,1007,2416);
         
         //acanvas.explore();
         acanvas.write("images/finalcollage.jpg");
     }
+    
     public static void stripe(Picture collage, int height) {
         Pixel[] pixels = collage.getPixels();
         int width = collage.getWidth();
@@ -54,28 +52,6 @@ public class collage
                 p.setGreen(255 - p.getGreen());
                 p.setBlue(255 - p.getBlue());
             }
-        }
-    }
-    
-    public static void colorReplacement(Picture collage, double distance, Color oldcol, Color newcol) {
-        Pixel[] pixels = collage.getPixels();
-        for (Pixel spot : pixels) {
-            if (Pixel.colorDistance(spot.getColor(), oldcol) < distance) {
-                spot.setColor(newcol);
-            }
-        }
-    }
-    
-    public static void posterize(Picture collage,double amount) {
-        Pixel[] pixels = collage.getPixels();
-        int step = (int)(255/amount);
-        for (Pixel p : pixels) {
-            int r = (p.getRed()/step)*step;
-            int g = (p.getGreen()/step)*step;
-            int b = (p.getBlue()/step)*step;
-            p.setRed(r);
-            p.setGreen(g);
-            p.setBlue(b);
         }
     }
     
@@ -174,3 +150,29 @@ public class collage
         }//loop
     }
 }
+
+        //colorReplacement(collage5,60,new Color(243,124,0),Color.yellow);
+        //colorReplacement(collage5,60,new Color(238,9,29),Color.blue);
+        
+/*public static void colorReplacement(Picture collage, double distance, Color oldcol, Color newcol) {
+        Pixel[] pixels = collage.getPixels();
+        for (Pixel spot : pixels) {
+            if (Pixel.colorDistance(spot.getColor(), oldcol) < distance) {
+                spot.setColor(newcol);
+            }
+        }
+    }
+    
+    public static void posterize(Picture collage,double amount) {
+        Pixel[] pixels = collage.getPixels();
+        int step = (int)(255/amount);
+        for (Pixel p : pixels) {
+            int r = (p.getRed()/step)*step;
+            int g = (p.getGreen()/step)*step;
+            int b = (p.getBlue()/step)*step;
+            p.setRed(r);
+            p.setGreen(g);
+            p.setBlue(b);
+        }
+    }*/
+//posterize(collage5,2.3);
